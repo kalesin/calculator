@@ -81,18 +81,43 @@ let previousOperatorPressed = null;
 let result = null;
 let resultDigits = null;
 
-function displayOverflowingDigits(digitArray){
-    if (digitArray.filter(element => element == "e") > 0) {
+function displayOverflowingDigits(digitArray) {
+    if (digitArray.filter(element => element == "e").length > 0) {
         let factorE = digitArray.splice(digitArray.indexOf("e"), digitArray.length);
-        digitArray.splice(9, digitArray.length)
-        digitArray.splice(1, 0, ".")
+        factorE.splice(0, 1)
+        digitArray.splice(10, digitArray.length)
         document.querySelector(`[displayColumn="2"]`).innerHTML = digitArray.join("");
-        document.querySelector(`[displayColumn="3"]`).innerHTML = factorE;
+        document.querySelector(`[displayColumn="3"]`).innerHTML = `*10^${factorE.join("")}`;
     } else if (digitArray.filter(element => element == "e") == 0) {
-        let powerOf10 = digitArray.splice(9, digitArray.length)
-        digitArray.splice(1, 0, ".")
-        document.querySelector(`[displayColumn="2"]`).innerHTML = digitArray.join("");
-        document.querySelector(`[displayColumn="3"]`).innerHTML = `* 10^${powerOf10.length+9}`;
+        if (digitArray.filter(element => element == ".").length > 0) {
+            //za primer decimalka + pred decimalko manj kot 10 cifr.
+            if (digitArray.indexOf(".") < 10) {
+                if (digitArray.indexOf(".") == 9) {
+                    digitArray.splice(9, digitArray.length)
+                } else {
+                    digitArray.splice(10, digitArray.length)
+                }
+                document.querySelector(`[displayColumn="2"]`).innerHTML = digitArray.join("");
+                document.querySelector(`[displayColumn="3"]`).innerHTML = ``;
+            } else if (digitArray.indexOf(".") == 10) {
+                console.log('nigggeer')
+                digitArray.splice(10, digitArray.length)
+                document.querySelector(`[displayColumn="2"]`).innerHTML = digitArray.join("");
+                document.querySelector(`[displayColumn="3"]`).innerHTML = ``;
+            } else if (digitArray.indexOf(".") > 10) {
+                digitArray.splice(digitArray.indexOf("."), digitArray.length)
+                let powerOf10 = digitArray.splice(9, digitArray.length)
+                digitArray.splice(1, 0, ".")
+                document.querySelector(`[displayColumn="2"]`).innerHTML = digitArray.join("");
+                document.querySelector(`[displayColumn="3"]`).innerHTML = `*10^+${powerOf10.length+9}`;
+            }
+        } else if (digitArray.filter(element => element == ".").length == 0) {
+            let powerOf10 = digitArray.splice(9, digitArray.length);
+            digitArray.splice(1, 0, ".")
+            document.querySelector(`[displayColumn="2"]`).innerHTML = digitArray.join("");
+            document.querySelector(`[displayColumn="3"]`).innerHTML = `*10^+${powerOf10.length+9}`;
+        }
+
     }
 }
 
@@ -201,7 +226,8 @@ function displayPressed() {
                         result = operate(previousOperatorPressed, firstInputNum, secondInputNum);
                         resultDigits = result.toString().split("");
                         console.log('resultDigits')
-                        console.log(resultDigits)dd
+                        console.log(resultDigits)
+                        console.log('result')
                         console.log(result)
                         if (resultDigits.length >= 10) {
                             displayOverflowingDigits(resultDigits);
@@ -211,7 +237,7 @@ function displayPressed() {
                     }
                     last10pressed = [];
                 } else if (result) {
-                    firstInput = resultDigits.join("");
+                    firstInput = result;
                     firstInputNum = parseFloat(firstInput, 10);
                     if (previousOperatorPressed == "/" && secondInput == 0) {
                         document.querySelector(`[displayColumn="2"]`).innerHTML = "Can't divide by 0!"
@@ -220,6 +246,7 @@ function displayPressed() {
                         resultDigits = result.toString().split("");
                         console.log('resultDigits')
                         console.log(resultDigits)
+                        console.log('result')
                         console.log(result)
                         if (resultDigits.length >= 10) {
                             displayOverflowingDigits(resultDigits);
@@ -233,7 +260,7 @@ function displayPressed() {
                 for (let i = 0; i <= 3; i++) {
                     document.querySelector(`[displayColumn="${i}"]`).innerHTML = "";
                 }
-                for (let i = 1; i <= 2; i++) {
+                for (let i = 1; i <= 1; i++) {
                     document.querySelector(`[displayRow="${i}"]`).innerHTML = "";
                 }
                 firstInput = null;
