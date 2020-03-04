@@ -201,7 +201,7 @@ function displayPressed() {
                         result = operate(previousOperatorPressed, firstInputNum, secondInputNum);
                         resultDigits = result.toString().split("");
                         console.log('resultDigits')
-                        console.log(resultDigits)
+                        console.log(resultDigits)dd
                         console.log(result)
                         if (resultDigits.length >= 10) {
                             displayOverflowingDigits(resultDigits);
