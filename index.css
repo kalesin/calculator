@@ -1,0 +1,106 @@
+#buttons {
+    display: flex;
+}
+
+#numberButtons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row-reverse;
+    width: 318px;
+}
+
+#functionButtons {
+    display: flex;
+    flex-wrap: wrap;
+    width: 212px;
+    height: 318px;
+}
+
+[digit] {
+    display: block;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    background-color: #807d7d;
+    border: 2px solid black;
+    margin: 1px;
+    font-size: 80px;
+    text-align: center;
+}
+
+/* 
+[digit="."]{
+    background-color: #5f5f5f;
+}  */
+
+[function] {
+    display: block;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    background-color: #e2db80;
+    border: 2px solid black;
+    margin: 1px;
+    font-size: 80px;
+    text-align: center;
+}
+
+[function="="] {
+    background-color: #ff7474
+}
+
+#display {
+    display: flex;
+    flex-wrap: wrap;
+    height: 240px;
+    width: 524px;
+    background-color: #29a129;
+    border: 2px solid black;
+    margin: 1px;
+}
+
+[displayRow] {
+    display: flex;
+    width: 514px;
+    margin: 0px auto;
+    height: 79px;
+    line-height: 80px;
+    font-size: 70px;
+}
+
+[displayRow="0"] {
+    display: flex;
+    width: 514px;
+    margin: 0px auto;
+    font-size: 70px;
+}
+
+[displayColumn="0"] {
+    display: block;
+    width: 256px;
+    text-align: left;
+}
+
+[displayColumn="1"] {
+    display: block;
+    width: 256px;
+    text-align: right;
+}
+
+[displayColumn="2"] {
+    display: block;
+    width: 256px;
+    text-align: left;
+}
+
+[displayColumn="3"] {
+    display: block;
+    width: 256px;
+    text-align: right;
+    font-size: 50px;
+}
+
+[displayRow="1"] {
+    border: 1px solid black;
+    text-align: right;
+}
